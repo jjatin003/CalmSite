@@ -1,0 +1,23 @@
+body {
+    background-color: rgb(153, 214, 193);
+}
+
+.content {
+    margin-left: 70px;
+    margin-top: 10px;
+    color: black;
+    font-size: 15px;
+    font: 'Apercu', sans-serif;
+
+}
+
+.ending {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-top: 45px;
+}
+
+.ending_last {
+    font-size: 1.5rem;
+}

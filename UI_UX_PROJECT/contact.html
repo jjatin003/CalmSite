@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Talk With Us</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js"></script>
+    <link rel="stylesheet" href="contact.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h2 style="font-weight: 600;">Consultation form</h2>
+        <form id="Form" method="post">
+            <div class="form-group">
+                <span><label for="client_name">Name:</label> <label id="empIdMsg">
+                    </label></span>
+                <input type="text" class="form-control" name="name" id="client_name" placeholder="Enter your name"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="client_phone">Phone no.:</label>
+                <input type="text" class="form-control" id="client_phone" placeholder="Enter your Phone no."
+                    name="phone">
+            </div>
+            <div class="form-group">
+                <label for="client_Email">Email:</label>
+                <input type="email" class="form-control" id="client_Email" placeholder="Enter your Email" name="Email">
+            </div>
+            <div class="form-group">
+                <label for="client_msg">Message</label>
+                <input type="text" class="form-control" id="client_msg" placeholder="Enter your Messsage" name="msg">
+            </div>
+            <input type="button" class="btn btn-primary" id="empSave" value="Save" onclick="saveclient();">
+        </form>
+    </div>
+
+    <script>
+
+        function validateAndGetFormData() {
+            var client_nameVar = $("#client_name").val();
+            if (client_nameVar === "") {
+                alert("Name Required Value");
+                $("#client_name").focus();
+                return "";
+            }
+            var client_phoneVar = $("#client_phone").val();
+            if (client_phoneVar === "") {
+                alert("Phone is Required Value");
+                $("#client-phone").focus();
+                return "";
+            }
+            var client_EmailVar = $("#client_Email").val();
+            if (client_EmailVar === "") {
+                alert(" Email is Required Value");
+                $("#client_Email").focus();
+                return "";
+            }
+            var client_msgVar = $("#client_msg").val();
+
+            var jsonStrObj = {
+                client_name: client_nameVar,
+                client_phone: client_phoneVar,
+                client_Email: client_EmailVar,
+                client_msg: client_msgVar,
+
+            };
+            return JSON.stringify(jsonStrObj);
+        }
+        // This method is used to create PUT Json request.
+
+
+
+        function resetForm() {
+            $("#client_name").val("")
+            $("#client_phone").val("");
+            $("#client_Email").val("");
+            $("#client_msg").val("");
+
+        }
+        function saveclient() {
+            var jsonStr = validateAndGetFormData();
+            if (jsonStr === "") {
+                return;
+            }
+            var putReqStr = createPUTRequest("90937378|-31949298416506264|90943318",
+                jsonStr, "SAMPLE", "EMP-REL");
+            alert(putReqStr);
+            jQuery.ajaxSetup({ async: false });
+            var resultObj = executeCommandAtGivenBaseUrl(putReqStr,
+                "http://api.login2explore.com:5577", "/api/iml");
+            alert(JSON.stringify(resultObj));
+            jQuery.ajaxSetup({ async: true });
+            resetForm();
+        }
+    </script>
+
+    <div class="content">
+        we will reach to you as soon as possible via email or phone number. Feel free to contact us.
+        <div class="ending">
+            <a href="index.html" style="text-decoration:none">Thank You ❤️</a>
+            <div class="ending_last">click to go back to home</div>
+        </div>
+    </div>
+</body>
+
+</html>
